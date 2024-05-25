@@ -1,10 +1,4 @@
-import {
-  CircleUser,
-  Menu,
-  Package2,
-  Search,
-  SquareMenuIcon,
-} from "lucide-react";
+import { Menu, SquareMenuIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -13,15 +7,6 @@ import { ModeToggle } from "@/components/mode-toggle";
 import Logo from "@/assets/LogoCtrlDev.svg";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 function App() {
   return (

@@ -1,7 +1,14 @@
-import React from "react";
+import Hero from "./components/Hero";
+import { ThemeProvider } from "@/components/theme-provider";
 
 function App() {
-  return <div>App</div>;
+  return (
+    <div>
+      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
+        <Hero />
+      </ThemeProvider>
+    </div>
+  );
 }
 
 export default App;
