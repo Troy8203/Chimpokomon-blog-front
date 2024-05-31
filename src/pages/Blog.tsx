@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
 import { Search } from "lucide-react";
 
@@ -12,7 +13,7 @@ function App() {
       <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <div className="nav-tags flex w-full items-center justify-center">
           <nav className="w-5/6 flex items-center justify-center sm:justify-between my-2 flex-wrap gap-2">
-            <ul className="flex gap-1">
+            <ul className="flex gap-1 flex-wrap sm:flex-nowrap justify-center">
               <li>
                 <a href="#">
                   <Badge variant="default">Informatic</Badge>
@@ -44,6 +45,7 @@ function App() {
             </div>
           </nav>
         </div>
+        <Separator />
         <div>
           <Card />
         </div>
