@@ -13,7 +13,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 function Navbar() {
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center justify-between gap-1 border-b bg-background px-4 md:px-6">
+      <header className="top-0 flex h-16 items-center justify-between gap-1 border-b bg-background px-4 md:px-6">
         <Sheet>
           <SheetTrigger asChild>
             <Button

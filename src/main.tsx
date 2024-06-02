@@ -7,6 +7,7 @@ import Blog from "./pages/Blog.tsx";
 import BlogShow from "./pages/BlogShow.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Test from "./pages/Test.tsx";
+import ListBlog from "./pages/Blogs/ListBlog.tsx";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -17,7 +18,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<Blog />} />
         <Route path="blogs" element={<Blog />}>
-          <Route path=":id" element={<Test />} />
+          <Route index element={<ListBlog />} />
+          <Route path=":id" element={<ListBlog />} />
         </Route>
         <Route path="contact" element={<BlogShow />} />
         <Route path="*" element={<NotFound />} />

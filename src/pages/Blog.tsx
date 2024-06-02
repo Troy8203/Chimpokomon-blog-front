@@ -48,10 +48,6 @@ function App() {
         </div>
         <Separator />
         <div>
-          <Card />
-        </div>
-
-        <div>
           <Outlet />
         </div>
       </ThemeProvider>
