@@ -118,7 +118,7 @@ function ListBlog() {
 
   const listAllBlogs = async () => {
     const url =
-      "https://mp76469b475e2abc2239.free.beeceptor.com/api/posts?includeTags=true&includeCategory=true&paginate=true";
+      "https://mp7641e2bf09862fd211.free.beeceptor.com/api/posts?includeTags=true&includeCategory=true&paginate=true";
     try {
       const response = await axios.get(url);
       setBlogs(response.data.data);
@@ -147,12 +147,14 @@ function ListBlog() {
       ) : (
         <>
           {blogs.map((blog, index) => (
-            <div key={blog.id} className="relative w-10/12">
+            <div key={blog.id} className="relative w-10/12 max-w-2xl">
               <Card
                 title={blog.title}
+                description={blog.description}
                 contend={blog.content}
                 index={index}
                 image_url={images[index % images.length].url}
+                tags={blog.tags}
               />
             </div>
           ))}
