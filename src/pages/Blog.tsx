@@ -2,6 +2,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Outlet } from "react-router-dom";
 
 import { Search } from "lucide-react";
 
@@ -48,6 +49,10 @@ function App() {
         <Separator />
         <div>
           <Card />
+        </div>
+
+        <div>
+          <Outlet />
         </div>
       </ThemeProvider>
     </div>

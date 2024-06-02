@@ -1,12 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "./index.css";
+
 import Navbar from "./components/Navbar.tsx";
 import Blog from "./pages/Blog.tsx";
-import "./index.css";
+import BlogShow from "./pages/BlogShow.tsx";
+import NotFound from "./pages/NotFound.tsx";
+import Test from "./pages/Test.tsx";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Navbar />
-    <Blog />
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Blog />} />
+        <Route path="blogs" element={<Blog />}>
+          <Route path=":id" element={<Test />} />
+        </Route>
+        <Route path="contact" element={<BlogShow />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
