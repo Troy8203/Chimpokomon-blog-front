@@ -3,16 +3,16 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 //Import components
-import Card from "../../components/Card";
+import BlogCard from "@/components/BlogCard";
 import Loading from "@/components/Loading";
 
 //Import types
 import { Blog } from "../../types/blog.types";
 
-function ListBlog() {
+function ShowBlog() {
   const { id } = useParams();
 
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<Blog>();
   const [loading, setLoading] = useState(true);
   const [error, setErrors] = useState(false);
   const [links, setLinks] = useState([]);
@@ -115,13 +115,30 @@ function ListBlog() {
       name: "Gophermon",
     },
   ];
+  const background_img = [
+    {
+      id: 0,
+      url: "https://images.unsplash.com/photo-1488998427799-e3362cec87c3?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      origen: "uplash",
+    },
+    {
+      id: 1,
+      url: "https://images.unsplash.com/photo-1518655048521-f130df041f66?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      origen: "uplash",
+    },
+    {
+      id: 2,
+      url: "https://images.unsplash.com/photo-1619972898592-5de4b1c68025?q=80&w=1631&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      origen: "uplash",
+    },
+  ];
 
-  const listAllBlogs = async () => {
-    const url =
-      "https://mp7641e2bf09862fd211.free.beeceptor.com/api/posts?includeTags=true&includeCategory=true&paginate=true";
+  const ShowBlog = async (id: string) => {
+    const url = `https://mp29fa92913f407755be.free.beeceptor.com/api/posts/${id}?includeCategory=true&includeTags=true`;
     try {
       const response = await axios.get(url);
       setBlogs(response.data.data);
+      console.log(response.data.data);
     } catch (error) {
       setErrors(true);
       console.log(error);
@@ -132,33 +149,45 @@ function ListBlog() {
 
   useEffect(() => {
     console.log("Id: " + id);
-    if (!id) {
-      listAllBlogs();
+    if (id) {
+      ShowBlog(id);
     }
   }, []);
 
   return (
-    <div className="container-card flex flex-col items-center">
+    <div className="container-card flex flex-col items-center relative">
       {loading ? (
         <Loading />
       ) : (
         <>
-          {blogs.map((blog, index) => (
-            <div key={blog.id} className="relative w-10/12 max-w-2xl">
-              <Card
-                title={blog.title}
-                description={blog.description}
-                contend={blog.content}
-                index={index}
-                image_url={images[index % images.length].url}
-                tags={blog.tags}
+          {blogs && (
+            <div className="relative w-10/12 max-w-2xl">
+              <BlogCard
+                title={blogs.title}
+                description={blogs.description}
+                contend={blogs.content}
+                tags={blogs.tags}
+                image_url={images[0].url}
               />
             </div>
-          ))}
+          )}
         </>
       )}
+      <div className="absolute top-0 -z-10 w-full h-72">
+        <img
+          className="block dark:hidden w-full h-full object-cover"
+          src={background_img[1].url}
+          alt="BannerBlog"
+        />
+        <img
+          className="hidden dark:block w-full h-full object-cover"
+          src={background_img[2].url}
+          alt="BannerBlog"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background from-2%" />
+      </div>
     </div>
   );
 }
 
-export default ListBlog;
+export default ShowBlog;
