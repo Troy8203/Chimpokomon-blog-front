@@ -145,7 +145,7 @@ function ListBlog() {
         <>
           {blogs.map((blog, index) => (
             <Link
-              to={`/103`}
+              to={`/${blog.id}`}
               key={blog.id}
               className="relative w-10/12 max-w-2xl"
             >
