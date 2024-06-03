@@ -132,9 +132,10 @@ function ShowBlog() {
       origen: "uplash",
     },
   ];
+  const url_base = process.env.URL_BACKEND;
 
   const ShowBlog = async (id: string) => {
-    const url = `https://mp29fa92913f407755be.free.beeceptor.com/api/posts/${id}?includeCategory=true&includeTags=true`;
+    const url = `${url_base}/api/posts/${id}?includeCategory=true&includeTags=true&includeUser=true`;
     try {
       const response = await axios.get(url);
       setBlogs(response.data.data);
@@ -168,6 +169,8 @@ function ShowBlog() {
                 contend={blogs.content}
                 tags={blogs.tags}
                 image_url={images[0].url}
+                date={new Date(blogs.created_at)}
+                autor={blogs.user.name}
               />
             </div>
           )}

@@ -7,10 +7,9 @@ interface CardProps {
   index: number;
   image_url: string;
   tags: [{ id: string; name: string; status: string }];
+  date: Date;
+  autor: string;
 }
-
-const date = new Date();
-const autor = "Jhon Doe";
 
 function Card(props: CardProps) {
   return (
@@ -19,14 +18,14 @@ function Card(props: CardProps) {
         <>
           <div className="card py-4 px-10 m-3 border rounded-md flex flex-col items-start justify-center gap-2 min-h-40 bg-card text-card-foreground">
             <div className="w-full">
-              <h3 className="text-base md:text-xl font-extrabold text-center md:text-left text-primary-foreground dark:text-primary">
+              <h3 className="capitalize text-base md:text-xl font-extrabold text-center md:text-left text-primary-foreground dark:text-primary">
                 {props.title}
               </h3>
             </div>
             <div className="w-full flex justify-start items-center flex-wrap gap-1">
               {props.tags.map((tag) => (
                 <Badge
-                  id={tag.id}
+                  key={tag.id}
                   variant="secondary"
                   className="text-xs lowercase bg-primary dark:bg-muted dark:text-muted-foreground"
                 >
@@ -38,7 +37,7 @@ function Card(props: CardProps) {
               {props.description}
             </p>
             <span className="w-full text-xs text-justify text-muted-foreground flex justify-end">
-              {`${autor} · ${date.toLocaleDateString()}`}
+              {`${props.autor} · ${props.date.toLocaleDateString()}`}
             </span>
           </div>
           <div className="size-16 md:size-24 lg:size-32 absolute bottom-0 -right-8 md:-right-16 lg:-right-20">
@@ -53,14 +52,14 @@ function Card(props: CardProps) {
         <>
           <div className="card py-4 px-10 m-3 border rounded-md flex flex-col items-start justify-center gap-2 min-h-40 bg-card text-card-foreground">
             <div className="w-full">
-              <h3 className="text-base md:text-xl font-extrabold text-center md:text-left text-primary-foreground dark:text-primary">
+              <h3 className="capitalize text-base md:text-xl font-extrabold text-center md:text-left text-primary-foreground dark:text-primary">
                 {props.title}
               </h3>
             </div>
             <div className="w-full flex justify-start items-center flex-wrap gap-1">
               {props.tags.map((tag) => (
                 <Badge
-                  id={tag.id}
+                  key={tag.id}
                   variant="secondary"
                   className="text-xs lowercase bg-primary dark:bg-muted dark:text-muted-foreground"
                 >
@@ -72,7 +71,7 @@ function Card(props: CardProps) {
               {props.description}
             </p>
             <span className="w-full text-xs text-justify text-muted-foreground flex justify-end">
-              {`${autor} · ${date.toLocaleDateString()}`}
+              {`${props.autor} · ${props.date.toLocaleDateString()}`}
             </span>
           </div>
           <div className="size-16 md:size-24 lg:size-32 absolute bottom-0 -left-8 md:-left-16 lg:-left-20">

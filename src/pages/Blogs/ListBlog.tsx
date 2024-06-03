@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 //Import components
@@ -115,10 +115,10 @@ function ListBlog() {
       name: "Gophermon",
     },
   ];
+  const url_base = process.env.URL_BACKEND;
 
   const listAllBlogs = async () => {
-    const url =
-      "https://mp7641e2bf09862fd211.free.beeceptor.com/api/posts?includeTags=true&includeCategory=true&paginate=true";
+    const url = `${url_base}/api/posts?includeUser=true&includeTags=true&includeCategory=true`;
     try {
       const response = await axios.get(url);
       setBlogs(response.data.data);
@@ -144,7 +144,11 @@ function ListBlog() {
       ) : (
         <>
           {blogs.map((blog, index) => (
-            <div key={blog.id} className="relative w-10/12 max-w-2xl">
+            <Link
+              to={`/103`}
+              key={blog.id}
+              className="relative w-10/12 max-w-2xl"
+            >
               <Card
                 title={blog.title}
                 description={blog.description}
@@ -152,8 +156,10 @@ function ListBlog() {
                 index={index}
                 image_url={images[index % images.length].url}
                 tags={blog.tags}
+                date={new Date(blog.created_at)} // Convert string to Date object
+                autor={blog.user.name}
               />
-            </div>
+            </Link>
           ))}
         </>
       )}

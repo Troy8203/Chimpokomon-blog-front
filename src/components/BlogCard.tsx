@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import Markdown from "react-markdown";
 
 interface BlogCardProps {
   title: string;
@@ -6,10 +7,9 @@ interface BlogCardProps {
   contend: string;
   image_url: string;
   tags: [{ id: string; name: string; status: string }];
+  date: Date;
+  autor: string;
 }
-
-const date = new Date();
-const autor = "Jhon Doe";
 
 function BlogCard(props: BlogCardProps) {
   return (
@@ -31,11 +31,11 @@ function BlogCard(props: BlogCardProps) {
             </Badge>
           ))}
         </div>
-        <p className="w-full text-sm md:text-base text-justify text-muted-foreground">
-          {props.contend}
-        </p>
+        <div className="w-full text-sm md:text-base text-justify text-muted-foreground">
+          <Markdown>{props.contend}</Markdown>
+        </div>
         <span className="w-full text-xs text-justify text-muted-foreground flex justify-end">
-          {`${autor} · ${date.toLocaleDateString()}`}
+          {`${props.autor} · ${props.date.toLocaleDateString()}`}
         </span>
       </div>
       <div className="size-16 md:size-24 lg:size-32 absolute bottom-0 -right-8 md:-right-16 lg:-right-20">

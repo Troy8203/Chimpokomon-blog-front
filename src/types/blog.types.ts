@@ -11,6 +11,13 @@ export interface Blog {
     description: string;
     status: string;
   };
+  created_at: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    status: string;
+  };
   tags: [
     {
       id: string;

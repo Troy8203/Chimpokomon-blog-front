@@ -2,13 +2,14 @@ import { Menu, SquareMenuIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeSwitch } from "@/components/mode-switch";
 
 import Logo from "@/assets/Logo.svg";
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
@@ -61,8 +62,8 @@ function Navbar() {
             </nav>
           </SheetContent>
         </Sheet>
-        <a
-          href="#"
+        <Link
+          to="/"
           className="flex items-center transition-colors hover:bg-secondary/80 gap-2 px-2 rounded"
         >
           <div className="w-14">
@@ -75,7 +76,7 @@ function Navbar() {
           <h2 className="uppercase font-black text-sm md:text-2xl lg:text-sm w-28 md:w-auto lg:w-28">
             El diario del chimpokomon
           </h2>
-        </a>
+        </Link>
         <nav className="flex-1 hidden flex-col gap-6 text-lg font-medium lg:flex md:flex-row md:items-center md:gap-5 md:text-sm md:justify-end lg:gap-1">
           {/* <a href="#" className="text-muted-foreground hover:text-foreground">
             Home

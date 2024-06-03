@@ -16,8 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Blog />} />
-        <Route path="blogs" element={<Blog />}>
+        <Route path="/" element={<Blog />}>
           <Route index element={<ListBlog />} />
           <Route path=":id" element={<ShowBlog />} />
         </Route>
