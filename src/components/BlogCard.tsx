@@ -2,6 +2,9 @@ import { Badge } from "@/components/ui/badge";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
 interface BlogCardProps {
   title: string;
   description: string;
@@ -93,7 +96,6 @@ function BlogCard(props: BlogCardProps) {
           <Markdown
             remarkPlugins={[remarkGfm]}
             disallowedElements={["Paragraph"]}
-            unwrapDisallowed
             components={{
               p: ({ node, ...props }) => {
                 if (
@@ -102,7 +104,8 @@ function BlogCard(props: BlogCardProps) {
                   Array.isArray(node.children) &&
                   node.children.some(
                     (child) =>
-                      child.type === "element" && child.tagName === "img"
+                      child.type === "element" &&
+                      (child.tagName === "img" || child.tagName === "code")
                   )
                 ) {
                   return <>{props.children}</>;
@@ -117,6 +120,27 @@ function BlogCard(props: BlogCardProps) {
                     {...props}
                   />
                 </div>
+              ),
+              pre: ({ node, ...props }) => (
+                <div className="my-3 mx-5 rounded-md overflow-hidden border-muted-foreground border-2">
+                  <div className="hidden sm:flex gap-1 bg-[#e5e6e8] dark:bg-[#221e1f] px-1 py-2">
+                    <div className="circle bg h-3 w-3 rounded-full bg-red-500"></div>
+                    <div className="circle bg h-3 w-3 rounded-full bg-yellow-500"></div>
+                    <div className="circle bg h-3 w-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="">{props.children}</div>
+                </div>
+              ),
+              code: ({ node, ...props }) => (
+                <SyntaxHighlighter
+                  className={`${props.className} w-full text-xs`}
+                  style={a11yLight}
+                  showLineNumbers
+                >
+                  {Array.isArray(props.children)
+                    ? props.children
+                    : [props.children] + "dawda" + [props.children?.toString()]}
+                </SyntaxHighlighter>
               ),
             }}
           >
