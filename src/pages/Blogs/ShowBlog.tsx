@@ -150,6 +150,7 @@ function ShowBlog() {
 
   useEffect(() => {
     console.log("Id: " + id);
+    console.log(atob("CgoKCgoKCgoKCi4KCi0KCi0KCgotCgo="));
     if (id) {
       ShowBlog(id);
     }
