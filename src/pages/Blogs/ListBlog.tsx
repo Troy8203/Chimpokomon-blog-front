@@ -14,9 +14,9 @@ function ListBlog() {
 
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setErrors] = useState(false);
+  /*const [error, setErrors] = useState(false);
   const [links, setLinks] = useState([]);
-  const [meta, setMeta] = useState([]);
+  const [meta, setMeta] = useState([]);*/
 
   const images = [
     {
@@ -123,7 +123,7 @@ function ListBlog() {
       const response = await axios.get(url);
       setBlogs(response.data.data);
     } catch (error) {
-      setErrors(true);
+      /*setErrors(true);*/
       console.log(error);
     } finally {
       setLoading(false);

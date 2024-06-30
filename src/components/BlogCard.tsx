@@ -4,6 +4,7 @@ import remarkGfm from "remark-gfm";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import CopyButton from "./CopyButton";
 
 interface BlogCardProps {
   title: string;
@@ -60,22 +61,10 @@ Combined emphasis with **asterisks and _underscores_**.
 Strikethrough uses two tildes. ~~Scratch this.~~
 `;
 
-const ParagraphRenderer: React.FC<{ children: React.ReactNode[] }> = ({
-  children,
-}) => {
-  const hasImage = !!children.find(
-    (child: React.ReactNode) =>
-      typeof child === "object" &&
-      (child as React.ReactElement).key &&
-      !!((child as React.ReactElement).key as string).match(/image/g)
-  );
-  return hasImage ? children : <p>{children}</p>;
-};
-
 function BlogCard(props: BlogCardProps) {
   return (
     <>
-      <div className="card py-4 px-10 m-3 border rounded-md flex flex-col items-start justify-center gap-2 min-h-40 bg-card text-card-foreground">
+      <div className="card py-4 px-10 sm:m-3 sm:border sm:rounded-md flex flex-col items-start justify-center gap-2 min-h-40 bg-card text-card-foreground">
         <div className="w-full">
           <h3 className="capitalize text-base md:text-xl font-extrabold text-center md:text-left text-primary-foreground dark:text-primary">
             {props.title}
@@ -97,15 +86,59 @@ function BlogCard(props: BlogCardProps) {
             remarkPlugins={[remarkGfm]}
             disallowedElements={["Paragraph"]}
             components={{
+              h1: ({ node, ...props }) => (
+                <h6
+                  className="text-3xl font-bold text-primary-foreground  dark:text-primary underline"
+                  {...props}
+                />
+              ),
+              h2: ({ node, ...props }) => (
+                <h6
+                  className="text-2xl font-bold text-primary-foreground  dark:text-primary underline"
+                  {...props}
+                />
+              ),
+              h3: ({ node, ...props }) => (
+                <h6
+                  className="text-xl font-bold text-primary-foreground  dark:text-primary"
+                  {...props}
+                />
+              ),
+              h4: ({ node, ...props }) => (
+                <h6
+                  className="text-base font-bold text-primary-foreground  dark:text-primary"
+                  {...props}
+                />
+              ),
+              h5: ({ node, ...props }) => (
+                <h6
+                  className="text-sm font-bold text-primary-foreground  dark:text-primary"
+                  {...props}
+                />
+              ),
+              h6: ({ node, ...props }) => (
+                <h6
+                  className="text-xs font-bold text-primary-foreground  dark:text-primary"
+                  {...props}
+                />
+              ),
+              ul: ({ node, ...props }) => (
+                <ul className="list-disc list-inside" {...props} />
+              ),
+              ol: ({ node, ...props }) => (
+                <ol className="list-decimal list-inside py-2" {...props} />
+              ),
+              li: ({ node, ...props }) => (
+                <li className="text-sm text-justify" {...props} />
+              ),
               p: ({ node, ...props }) => {
                 if (
                   node &&
                   node.children &&
-                  Array.isArray(node.children) &&
                   node.children.some(
                     (child) =>
                       child.type === "element" &&
-                      (child.tagName === "img" || child.tagName === "code")
+                      (child.tagName === "img" || child.tagName === "pre")
                   )
                 ) {
                   return <>{props.children}</>;
@@ -121,27 +154,41 @@ function BlogCard(props: BlogCardProps) {
                   />
                 </div>
               ),
-              pre: ({ node, ...props }) => (
-                <div className="my-3 mx-5 rounded-md overflow-hidden border-muted-foreground border-2">
-                  <div className="hidden sm:flex gap-1 bg-[#e5e6e8] dark:bg-[#221e1f] px-1 py-2">
-                    <div className="circle bg h-3 w-3 rounded-full bg-red-500"></div>
-                    <div className="circle bg h-3 w-3 rounded-full bg-yellow-500"></div>
-                    <div className="circle bg h-3 w-3 rounded-full bg-green-500"></div>
+              pre: ({ node, ...props }) => {
+                return (
+                  <div className="my-3 mx-0 md:mx-5 rounded-md overflow-hidden border-muted-foreground border-2">
+                    <div className="hidden sm:flex gap-1 bg-[#e5e6e8] dark:bg-[#221e1f] px-2 py-2">
+                      <div className="circle bg h-3 w-3 rounded-full bg-red-500"></div>
+                      <div className="circle bg h-3 w-3 rounded-full bg-yellow-500"></div>
+                      <div className="circle bg h-3 w-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <pre className="blog-pre relative">
+                      <CopyButton>{props.children}</CopyButton>
+                      {props.children}
+                    </pre>
                   </div>
-                  <div className="">{props.children}</div>
-                </div>
-              ),
-              code: ({ node, ...props }) => (
-                <SyntaxHighlighter
-                  className={`${props.className} w-full text-xs`}
-                  style={a11yLight}
-                  showLineNumbers
-                >
-                  {Array.isArray(props.children)
-                    ? props.children
-                    : [props.children] + "dawda" + [props.children?.toString()]}
-                </SyntaxHighlighter>
-              ),
+                );
+              },
+              code({ node, className = "blog-code", children, ...props }) {
+                const match = /language-(\w+)/.exec(className || "");
+                return match ? (
+                  <SyntaxHighlighter
+                    style={a11yLight}
+                    language={match[1]}
+                    PreTag={"div"}
+                    showLineNumbers
+                  >
+                    {Array.isArray(children) ? children : [children]}
+                  </SyntaxHighlighter>
+                ) : (
+                  <span
+                    className={`${className} px-2 rounded bg-muted-foreground text-muted`}
+                    {...props}
+                  >
+                    {children}
+                  </span>
+                );
+              },
             }}
           >
             {atob(props.contend)}
@@ -210,7 +257,7 @@ function BlogCard(props: BlogCardProps) {
           {`${props.autor} · ${props.date.toLocaleDateString()}`}
         </span>
       </div>
-      <div className="size-16 md:size-24 lg:size-32 absolute bottom-0 -right-8 md:-right-16 lg:-right-20">
+      <div className="size-16 md:size-24 lg:size-32 hidden md:block md:absolute bottom-0 md:-right-16 ">
         <img
           src={props.image_url}
           alt="chimpokomon logo"

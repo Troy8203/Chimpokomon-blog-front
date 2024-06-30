@@ -6,8 +6,6 @@ import { Outlet } from "react-router-dom";
 
 import { Search } from "lucide-react";
 
-import Card from "@/components/CardBlog";
-
 function App() {
   return (
     <div>
