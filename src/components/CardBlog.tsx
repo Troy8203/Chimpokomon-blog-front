@@ -35,7 +35,7 @@ function CardBlog() {
           <h2 className="text-center md:text-left text-xl sm:text-3xl md:text-[2.5rem] font-extrabold up">
             Aprende Desarrollo
             <WordRotate
-              className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-purple-700 to-red-damask-700 bg-clip-text text-transparent"
+              className="pointer-events-none z-10 whitespace-pre-wrap bg-gradient-to-b from-purple-700 to-red-damask-700 bg-clip-text text-transparent"
               words={[" Web ", " Mobile "]}
             />
             <span className="lg:text-[.7em] line-clamp-none">
@@ -59,7 +59,7 @@ function CardBlog() {
           <Button variant="outline">Más Información</Button>
         </div>
       </div>
-      <div className="max-w-80">
+      <div className="max-w-80 z-10">
         <IconCloud iconSlugs={slugs} />
       </div>
       <AnimatedGridPattern
@@ -69,7 +69,8 @@ function CardBlog() {
         repeatDelay={1}
         className={cn(
           "lg:[mask-image:radial-gradient(1024px_circle_at_right,white,transparent)]",
-          "[mask-image:radial-gradient(500px_circle_at_right,white,transparent)]",
+          "md:[mask-image:radial-gradient(500px_circle_at_right,white,transparent)]",
+          "[mask-image:radial-gradient(370px_circle_at_center,white,transparent)]",
           "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
         )}
       />

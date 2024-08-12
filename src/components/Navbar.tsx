@@ -11,13 +11,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 function App() {
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center justify-start md:justify-around gap-4 border-b bg-background px-4 md:px-6 z-20">
+      <header className="top-0 flex h-16 items-center justify-start md:justify-around gap-4 border-b bg-background px-4 md:px-6 z-20 relative">
         <Sheet>
           <SheetTrigger asChild>
             <Button
               variant="outline"
               size="icon"
-              className="shrink-0 md:hidden"
+              className="shrink-0 md:hidden absolute left-4"
             >
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle navigation menu</span>
@@ -59,7 +59,7 @@ function App() {
             </nav>
           </SheetContent>
         </Sheet>
-        <div className="w-full md:w-36 flex items-center justify-center md:justify-start md:ml-auto">
+        <div className="flex-1 text-center md: w-full md:w-36 flex items-center justify-center md:justify-start md:ml-auto">
           <img
             src={Logo}
             className="ring-offset-background transition-colors bg-secondary hover:bg-secondary/80 p-1 px-7 rounded-md max-h-12"
