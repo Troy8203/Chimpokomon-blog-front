@@ -149,8 +149,8 @@ function ShowBlog() {
   };
 
   useEffect(() => {
-    console.log("Id: " + id);
-    console.log(atob("CgoKCgoKCgoKCi4KCi0KCi0KCgotCgo="));
+    //console.log("Id: " + id);
+    //console.log(atob("CgoKCgoKCgoKCi4KCi0KCi0KCgotCgo="));
     if (id) {
       ShowBlog(id);
     }
@@ -170,6 +170,7 @@ function ShowBlog() {
                 contend={blogs.content}
                 tags={blogs.tags}
                 image_url={images[0].url}
+                //image_url={"https://i.postimg.cc/XJZwdMRQ/image.png"}
                 date={new Date(blogs.created_at)}
                 autor={blogs.user.name}
               />

@@ -1,10 +1,23 @@
 import { Badge } from "@/components/ui/badge";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkParse from "remark-parse";
+import rehypeRaw from "rehype-raw";
 
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import CopyButton from "./CopyButton";
+
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface BlogCardProps {
   title: string;
@@ -83,8 +96,8 @@ function BlogCard(props: BlogCardProps) {
         </div>
         <div className="w-full text-sm md:text-base text-justify text-muted-foreground">
           <Markdown
-            remarkPlugins={[remarkGfm]}
-            disallowedElements={["Paragraph"]}
+            remarkPlugins={[remarkParse, remarkGfm]}
+            rehypePlugins={[rehypeRaw]} // Añadir rehype-raw para procesar HTML sin procesar
             components={{
               h1: ({ node, ...props }) => (
                 <h6
@@ -189,68 +202,36 @@ function BlogCard(props: BlogCardProps) {
                   </span>
                 );
               },
+              a({ node, ...props }) {
+                return <a className="underline italic" {...props} />;
+              },
+              table({ node, ...props }) {
+                return (
+                  <div className="my-3 mx-0 md:mx-5 rounded-md border-muted-foreground border-2">
+                    <Table {...props} />
+                  </div>
+                );
+              },
+              thead({ node, ...props }) {
+                return <TableHeader {...props} />;
+              },
+              tbody({ node, ...props }) {
+                return <TableBody {...props} />;
+              },
+              tr({ node, ...props }) {
+                return <TableRow {...props} />;
+              },
+              th({ node, ...props }) {
+                return (
+                  <TableHead className="py-2 font-bold underline" {...props} />
+                );
+              },
+              td({ node, ...props }) {
+                return <TableCell className="py-2" {...props} />;
+              },
             }}
           >
             {atob(props.contend)}
-          </Markdown>
-          <div className="divider border-t-2"></div>
-          <Markdown
-            remarkPlugins={[remarkGfm]}
-            components={{
-              h1: ({ node, ...props }) => (
-                <h1 className="text-2xl font-bold text-primary" {...props} />
-              ),
-              h2: ({ node, ...props }) => (
-                <h2 className="text-xl font-bold text-primary" {...props} />
-              ),
-              h3: ({ node, ...props }) => (
-                <h3 className="text-lg font-bold text-primary" {...props} />
-              ),
-              h4: ({ node, ...props }) => (
-                <h4 className="text-base font-bold text-primary" {...props} />
-              ),
-              h5: ({ node, ...props }) => (
-                <h5 className="text-sm font-bold text-primary" {...props} />
-              ),
-              h6: ({ node, ...props }) => (
-                <h6 className="text-xs font-bold text-primary" {...props} />
-              ),
-              p: ({ node, ...props }) => (
-                <p className="text-sm text-justify" {...props} />
-              ),
-              ul: ({ node, ...props }) => (
-                <ul className="list-disc list-inside" {...props} />
-              ),
-              ol: ({ node, ...props }) => (
-                <ol className="list-decimal list-inside" {...props} />
-              ),
-              li: ({ node, ...props }) => (
-                <li className="text-sm text-justify text-muted" {...props} />
-              ),
-              a: ({ node, ...props }) => (
-                <a className="text-primary" {...props} />
-              ),
-              img: ({ node, ...props }) => (
-                <img className="w-full h-auto" {...props} />
-              ),
-              blockquote: ({ node, ...props }) => (
-                <blockquote
-                  className="text-sm text-justify text-muted"
-                  {...props}
-                />
-              ),
-              hr: ({ node, ...props }) => (
-                <hr className="divider border-t-2" {...props} />
-              ),
-              pre: ({ node, ...props }) => (
-                <pre className="text-sm text-justify text-muted" {...props} />
-              ),
-              code: ({ node, ...props }) => (
-                <code className="text-sm text-justify text-muted" {...props} />
-              ),
-            }}
-          >
-            {test}
           </Markdown>
         </div>
         <span className="w-full text-xs text-justify text-muted-foreground flex justify-end">
