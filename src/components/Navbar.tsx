@@ -11,7 +11,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 function App() {
   return (
     <>
-      <header className="sticky top-0 flex h-16 items-center justify-start md:justify-around gap-4 border-b bg-background px-4 md:px-6">
+      <header className="sticky top-0 flex h-16 items-center justify-start md:justify-around gap-4 border-b bg-background px-4 md:px-6 z-20">
         <Sheet>
           <SheetTrigger asChild>
             <Button
