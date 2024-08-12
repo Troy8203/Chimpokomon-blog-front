@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/mode-toggle";
 
-import Logo from "@/assets/LogoCtrlDev.svg";
+import Logo from "@/assets/LogoCtrlDev-Bordered.svg";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
