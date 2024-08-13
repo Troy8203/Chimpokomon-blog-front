@@ -29,6 +29,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 import Logo from "@/assets/LogoCtrlDev-Bordered.svg";
 
+import confetti from "canvas-confetti";
+
 const FormSchema = z.object({
   username: z.string().min(2, {
     message: "Usuario no valido",
@@ -39,20 +41,51 @@ const FormSchema = z.object({
   email: z.string().email({
     message: "Dirección de correo electrónico no válida",
   }),
-  description: z.optional(z.string()),
-  social_media: z.string({
-    required_error: "Seleccione una opción",
+  questions: z.optional(z.string()),
+  social_media: z.string().min(1, {
+    message: "Selecciona una opción",
   }),
 });
 
 function FormRegister() {
+  // Confetti function
+  const handleClick = () => {
+    const end = Date.now() + 3 * 1000; // 3 seconds
+    const colors = ["#3a0467", "#bf81ff", "#f0b081", "#722a1c"];
+
+    const frame = () => {
+      if (Date.now() > end) return;
+
+      confetti({
+        particleCount: 4,
+        angle: 60,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 0, y: 0.5 },
+        colors: colors,
+      });
+      confetti({
+        particleCount: 4,
+        angle: 120,
+        spread: 55,
+        startVelocity: 60,
+        origin: { x: 1, y: 0.5 },
+        colors: colors,
+      });
+
+      requestAnimationFrame(frame);
+    };
+
+    frame();
+  };
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: "",
       lastname: "",
       email: "",
-      description: "",
+      questions: "",
       social_media: "",
     },
   });
@@ -66,10 +99,12 @@ function FormRegister() {
         </pre>
       ),
     });
+    console.log(JSON.stringify(data, null, 2));
+    handleClick();
   }
 
   return (
-    <div className="w-full flex justify-around items-center mx-6 my-4">
+    <div className="w-full flex justify-around items-center px-6 my-4">
       <div className="flex items-end min-h-96 ">
         <div className="flex items-center justify-center w-80 h-80 bg-foreground rounded-full animate-bounce">
           <img src={Logo} className="" alt="Logo CtrlDev" />
@@ -81,7 +116,7 @@ function FormRegister() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-3 bg-foreground/5 max-w-2xl rounded-md p-4"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
               <FormField
                 control={form.control}
                 name="username"
@@ -154,7 +189,7 @@ function FormRegister() {
             />
             <FormField
               control={form.control}
-              name="description"
+              name="questions"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Preguntas</FormLabel>
@@ -173,7 +208,9 @@ function FormRegister() {
               )}
             />
             <div className="flex justify-end">
-              <Button type="submit">Submit</Button>
+              <Button onClick={handleClick} type="submit">
+                Enviar
+              </Button>
             </div>
           </form>
         </Form>

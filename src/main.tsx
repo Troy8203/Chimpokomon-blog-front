@@ -5,10 +5,15 @@ import FormRegister from "./components/FormRegister.tsx";
 import Blog from "./pages/Blog.tsx";
 import "./index.css";
 
+import Layoud from "./layoud.tsx";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Nav />
     {/* <Blog /> */}
-    <FormRegister />
+
+    <Layoud>
+      <FormRegister />
+    </Layoud>
   </React.StrictMode>
 );
