@@ -92,11 +92,31 @@ function FormRegister() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
-      title: "You submitted the following values:",
+      title: "Revise su bandeja de entrada",
       description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
+        <div className="flex items-center justify-center gap-2">
+          <div className="w-6 text-purple-heart-400 flex items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              className="icon icon-tabler icons-tabler-outline icon-tabler-mail-forward w-full h-auto"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M12 18h-7a2 2 0 0 1 -2 -2v-10a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v7.5" />
+              <path d="M3 6l9 6l9 -6" />
+              <path d="M15 18h6" />
+              <path d="M18 15l3 3l-3 3" />
+            </svg>
+          </div>
+          <p className="text-xs">
+            Le hemos enviado un correo de nuestra información.
+          </p>
+        </div>
       ),
     });
     console.log(JSON.stringify(data, null, 2));
