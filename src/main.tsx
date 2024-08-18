@@ -10,7 +10,7 @@ import Layoud from "./layoud.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Nav />
-    {/* <Blog /> */}
+    <Blog />
 
     <Layoud>
       <FormRegister />
