@@ -1,8 +1,4 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-
-import { Search } from "lucide-react";
 
 import Card from "@/components/CardBlog";
 
